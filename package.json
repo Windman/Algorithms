@@ -1,0 +1,23 @@
+{
+  "name": "algorithms",
+  "version": "1.0.0",
+  "description": "Prepatation for the algorithmic tests",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Windman/Algorithms.git"
+  },
+  "author": "M. KIlovatiy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Windman/Algorithms/issues"
+  },
+  "homepage": "https://github.com/Windman/Algorithms#readme",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0"
+  }
+}
