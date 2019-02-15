@@ -12,7 +12,7 @@ const trace = (r, ar, id) => {
 			r[chr][id] ++;
 		}
 	}
-}
+};
 
 const analyze = r => {
 	let summ = 0;
@@ -30,7 +30,7 @@ const analyze = r => {
 		}
 	});
 	return summ;
-}
+};
 
 
 describe('Anogramm', () => {
@@ -73,5 +73,5 @@ describe('Anogramm', () => {
 		trace(r, b, 1);
 		assert.equal(analyze(r), 3);
 		done();
-	})
+	});
 });
