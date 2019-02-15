@@ -1,46 +1,38 @@
 const assert = require("chai").assert;
 
-const equalChars = r => {
-  let res = true;
-  let p;
-  for (let i = 0; i < r.length; i++) {
-    if (p === undefined) {
-        p = r[i];
-    } else {
-        if (p.charCodeAt(0) === r[i].charCodeAt(0)) {
-            res = res && true;
-          } else {
-            res = res && false;
-          }
+const poloindrome = (s, pos) => {
+  let counter = 0;
+  let shift = 1;
+  while (
+    pos - shift >= 0 &&
+    pos + shift < s.length &&
+    s.charAt(pos - shift) == s.charAt(pos - 1) &&
+    s.charAt(pos + shift) == s.charAt(pos - 1)
+  ) {
+    counter++;
+    shift++;
+  }
+  return counter;
+};
+
+const analyze = s => {
+  let len = s.length;
+  let counter = 0;
+
+  for (let i = 0; i < len; i++) {
+    counter += poloindrome(s, i);
+
+    let repeats = 0;
+    while (i + 1 < s.length && s.charAt(i) == s.charAt(i + 1)) {
+      repeats++;
+      i++;
     }
+    counter += (repeats * (repeats + 1)) / 2;
   }
-  return res;
+  return counter + len;
 };
 
-const poloindrome = str => {
-  const middle = Math.floor(str.length / 2);
-  if (str.length % 2 === 0) {
-    return equalChars(str);
-  } else {
-
-    return str.slice(0, middle) == str.slice(middle + 1, str.length);
-  }
-};
-
-const analyze = r => {
-  let count = 0;
-  let len = r.length;
-  while (len > 1) {
-    for (let i = 0; i + len - 1 < r.length; i++) {
-      count += poloindrome(r.slice(i, len + i)) ? 1 : 0;
-    }
-    len--;
-  }
-
-  return count + r.length;
-};
-
-describe("Anogramm", () => {
+describe("Polindrome", () => {
   let r = "";
 
   before(done => {
@@ -50,21 +42,6 @@ describe("Anogramm", () => {
   after(done => {
     done();
   });
-
-  beforeEach(() => {
-    r = "";
-  });
-
-  it("Test equalChars 1", done => {
-    r = "aaaa";
-    assert.isTrue(equalChars(r));
-    r = "absb";
-    assert.isFalse(equalChars(r));
-    r = "mnonopoo";
-    assert.isFalse(equalChars(r));
-    done();
-  });
-  equalChars;
 
   it("Test 1", done => {
     r = "aaaa";
