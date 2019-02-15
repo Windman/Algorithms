@@ -43,6 +43,14 @@ describe("Polindrome", () => {
     done();
   });
 
+  it("Polindrome function Test 1", done => {
+    r = "aca";
+    assert.equal(poloindrome(r, 1), 1);
+    r = "bacab";
+    assert.equal(poloindrome(r, 2), 1);
+    done();
+  });
+
   it("Test 1", done => {
     r = "aaaa";
     assert.equal(analyze(r), 10);
