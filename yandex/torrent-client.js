@@ -10,17 +10,20 @@ module.exports = function ({chunkCount, emitter}) {
 				chunks[job.id] = job;
 
 				if (chunksRecieved === chunkCount) {
-					resolve(`Resolved with "${
-						Object.values(chunks).sort((a,b) => {
+					const result = Object.values(chunks).sort((a,b) => {
 						if (new Date(a.timestamp) > new Date(b.timestamp)) { return 1 }
 						else if (new Date(a.timestamp) === new Date(b.timestamp)) { return 0; } 
 						else { return -1}
-					}).map(job => job.data).join('')
-					}"`)
+					}).map(job => job.data).join('');
+
+					resolve(`Resolved with "${result}"`)
 				}
 			}
 		});
 
+		setTimeout(() => {
+			reject('Time out exceeded');
+		}, 1000)
 		
 	});
 };
