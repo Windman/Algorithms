@@ -1,5 +1,5 @@
 
-const torrentclient = require('./yandex/torrent-client');
+const torrentclient = require('./torrent-client/torrent-client');
 
 const tonnernt1 = {
 	chunkCount: 3,
