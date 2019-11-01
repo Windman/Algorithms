@@ -1,3 +1,29 @@
+const fs = require('fs');
+const util = require('util');
+
+const nodeReadFile = util.promisify(fs.readFile);
+
+async function readFile(path) {
+	const data = await nodeReadFile(path, "UTF-8");
+	
+	inputString = data
+		.toString()
+		.replace(/\s*$/, '')
+		.split('\n')
+		.map(str => str.replace(/\s*$/, ''));
+
+	return inputString;
+}
+
+async function readMatrix(path, rows) {
+	const textRows = await readFile(path);
+	const arr = [];
+	for (let i = 0; i < textRows.length; i++) {
+		arr[i] = textRows[i].split(' ').map(e => parseInt(e, 10));
+	}
+	return arr;
+}
+
 function getIndexOf2DArrayIn1DArray(i, j, columns) {
 	return i + j * columns;
 }
@@ -53,5 +79,7 @@ module.exports = {
 	parseSampleInput,
 	parseFlatArrayInToMatrix,
 	createMatrix,
-	printMatrix
+	printMatrix,
+	readFile,
+	readMatrix
 }
