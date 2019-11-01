@@ -66,3 +66,4 @@ function main() {
 
 	console.log('Result', result);
 }
+
