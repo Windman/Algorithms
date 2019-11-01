@@ -142,6 +142,18 @@ function isWord(str) {
 	return str.match(criteria) !== null;
 }
 
+function removeFromArray(arr, elt) {
+	for (var i = arr.length - 1; i >= 0; i--) {
+	  if (arr[i] == elt) {
+		arr.splice(i, 1);
+	  }
+	}
+}
+
+function printArray(arr) {
+	console.log(arr);
+}
+
 module.exports = {
 	getIndexOf2DArrayIn1DArray,
 	getElementPosition,
@@ -154,5 +166,7 @@ module.exports = {
 	isWord,
 	isNumber,
 	getSortByKey,
-	sortArray
+	sortArray,
+	removeFromArray,
+	printArray
 }

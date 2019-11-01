@@ -1,5 +1,6 @@
 const utility = require('./utilites');
 const hourglass = require('./hourglass');
+const findpath = require('./find-path');
 
 // Initial values
 var dimesions = "3 3";
@@ -12,6 +13,15 @@ async function main() {
 	
 	//const hourglassSample = await utility.readMatrix('./hourglass/sample.txt');
 	//hourglass(hourglassSample);
+
+	const findPathSample = await utility.readMatrix('./find-path/sample.txt');
+
+	try {
+		utility.printArray(findpath(findPathSample, 3, 3, [0, 0], [2, 1]));
+	} catch (error) {
+		console.error(error);
+	}
+	
 }
 
 main();
