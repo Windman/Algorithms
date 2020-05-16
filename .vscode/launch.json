@@ -8,6 +8,16 @@
 		{
 			"type": "node",
 			"request": "launch",
+			"name": "Default",
+			"program": "${workspaceFolder}/index.js",
+			"console": "integratedTerminal",
+			"internalConsoleOptions": "neverOpen",
+			"protocol": "inspector",
+			"sourceMaps": true
+		},
+		{
+			"type": "node",
+			"request": "launch",
 			"name": "Standart",
 			"program": "${workspaceFolder}/index.js",
 			"console": "integratedTerminal",
