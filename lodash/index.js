@@ -52,3 +52,29 @@ const check = (str) => {
 console.log(check('')); // undefined
 console.log(check('{[()]}')); // true
 console.log(check('{[(])}')); // false
+
+// Flat
+const flat = (arr) => {
+  const result = [];
+
+  queue = [...arr];
+
+  while (queue.length > 0) {
+    let elt = queue.shift();
+    if (Array.isArray(elt)) {
+      queue = [].concat.apply(queue ,elt);
+    } else {
+      result.push(elt);
+    }
+  }
+
+  console.log(result);
+  
+  return result;
+};
+
+flat([1, 2, [3, 4]]); // [1, 2, 3, 4]
+flat([1, 2, [3, 4], 5, 6, [7, [8, 9, [10, 11]]]]);
+// TODO Debounce
+
+// TOTO Throttling
