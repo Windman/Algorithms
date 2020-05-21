@@ -29,13 +29,22 @@
 			"type": "node",
 			"request": "launch",
 			"name": "Yandex",
-			"program": "${workspaceFolder}/yandex/index.js",
+			"program": "${workspaceFolder}/yandex/solution.js",
 			"console": "integratedTerminal",
 			"internalConsoleOptions": "neverOpen",
 			"protocol": "inspector",
 			"args": [
 				"<",
-				"${workspaceFolder}/yandex/ex1.txt"]
+				"${workspaceFolder}/yandex/exC.txt"]
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Lodash",
+			"program": "${workspaceFolder}/lodash/index.js",
+			"console": "integratedTerminal",
+			"internalConsoleOptions": "neverOpen",
+			"protocol": "inspector",
 		},
 		{
 			"type": "node",

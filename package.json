@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Windman/Algorithms#readme",
   "dependencies": {
     "chai": "^4.2.0",
+    "lodash": "^4.17.15",
     "mocha": "^5.2.0"
   },
   "devDependencies": {
