@@ -67,7 +67,75 @@ const qsort = array => {
     }
 }
 
-console.log(qsort([2, 5, 1, 4]));
+/**
+ * @param {number[]} coins
+ * @param {number} amount
+ * @return {number}
+ */
+var coinChange = function(coins, amount) {
+    
+    let bagMaxCoins = new Array(coins.length + 1);
+
+    for (let coinWeight = 0; coinWeight <= coins.length; coinWeight++) {
+        bagMaxCoins[coinWeight] = new Array(amount + 1);
+
+        for (let currBagAmount = 0; currBagAmount <= amount; currBagAmount++) {
+            bagMaxCoins[coinWeight][currBagAmount] = 0;
+        }
+    }
+
+    for (let coinWeight = 1; coinWeight <= coins.length; coinWeight++) {
+        for (let currBagAmount = 1; currBagAmount <= amount; currBagAmount++) {
+            bestPrice(bagMaxCoins, coinWeight, currBagAmount, coins, amount);
+        }
+    }
+
+    console.log(printArray(bagMaxCoins, coins, amount));
+
+    return bagMaxCoins[coins.length][amount];
+};
+
+var bestPrice = function(bagMaxCoins, coinWeight, currentBagAmount, coins, amount) {
+    const coinPrice = coins[coinWeight - 1];
+
+    if (currentBagAmount < coinPrice) {
+        bagMaxCoins[coinWeight][currentBagAmount] = bagMaxCoins[coinWeight - 1][currentBagAmount];
+        return;
+    };
+
+    let priorMaxWeight = bagMaxCoins[coinWeight - 1][currentBagAmount];
+    
+    let looseWeight = currentBagAmount - coinPrice;
+    
+    let currentMaxWeight = coinPrice + bagMaxCoins[coinWeight - 1][looseWeight];
+
+    bagMaxCoins[coinWeight][currentBagAmount]  = Math.max(priorMaxWeight, currentMaxWeight);
+}
+
+var printArray = function(table, coins, amount){
+    for (let coinWeight = 0; coinWeight < table.length; coinWeight++) {
+        if (coinWeight === 0) {
+            for (let cuurAmount = 1; cuurAmount < table[0].length; cuurAmount++) {
+                table[0][cuurAmount] = cuurAmount;
+            }
+            
+        }
+
+        if (coinWeight > 0) {
+            table[coinWeight][0] = coins[coinWeight - 1];
+        }
+    }
+
+    for (let coinWeight = 0; coinWeight < table.length; coinWeight++) {
+        console.log(table[coinWeight]);
+    }
+}
+
+console.log( 
+    coinChange([1, 2], 6)
+);
+
+//console.log(qsort([2, 5, 1, 4]));
 //console.log(max([2, 2, 2, 2]));
 
 //console.log(sum([2, 2, 2, 2]));
