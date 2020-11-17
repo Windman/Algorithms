@@ -99,7 +99,6 @@ var bestPrice = function(bagMaxCoins, coinWeight, currentBagAmount, coins, amoun
     const coinPrice = coins[coinWeight - 1];
 
     if (currentBagAmount < coinPrice) {
-        bagMaxCoins[coinWeight][currentBagAmount] = bagMaxCoins[coinWeight - 1][currentBagAmount];
         return;
     };
 
@@ -132,7 +131,7 @@ var printArray = function(table, coins, amount){
 }
 
 console.log( 
-    coinChange([1, 2], 6)
+    coinChange([2, 5], 5)
 );
 
 //console.log(qsort([2, 5, 1, 4]));
