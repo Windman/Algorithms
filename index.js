@@ -86,7 +86,7 @@ var coinChange = function(coins, amount) {
 
     for (let coinWeight = 1; coinWeight <= coins.length; coinWeight++) {
         for (let currBagAmount = 1; currBagAmount <= amount; currBagAmount++) {
-            bestPrice(bagMaxCoins, coinWeight, currBagAmount, coins, amount);
+            bestCoins(bagMaxCoins, coinWeight, currBagAmount, coins, amount);
         }
     }
 
@@ -95,20 +95,25 @@ var coinChange = function(coins, amount) {
     return bagMaxCoins[coins.length][amount];
 };
 
-var bestPrice = function(bagMaxCoins, coinWeight, currentBagAmount, coins, amount) {
+var bestCoins = function(bagMaxCoins, coinWeight, bagAmount, coins, amount) {
     const coinPrice = coins[coinWeight - 1];
 
-    if (currentBagAmount < coinPrice) {
+    if (bagAmount < coinPrice) {
+        bagMaxCoins[coinWeight][bagAmount]  = bagMaxCoins[coinWeight - 1][bagAmount];
         return;
     };
 
-    let priorMaxWeight = bagMaxCoins[coinWeight - 1][currentBagAmount];
+    let priorWeight = bagMaxCoins[coinWeight - 1][bagAmount];
     
-    let looseWeight = currentBagAmount - coinPrice;
+    let looseWeight = bagAmount - coinPrice;
     
-    let currentMaxWeight = coinPrice + bagMaxCoins[coinWeight - 1][looseWeight];
+    let currentWeight = coinPrice + bagMaxCoins[coinWeight-1][looseWeight];
 
-    bagMaxCoins[coinWeight][currentBagAmount]  = Math.max(priorMaxWeight, currentMaxWeight);
+    bagMaxCoins[coinWeight][bagAmount]  = Math.max(currentWeight, priorWeight);
+}
+
+var maxCoins = function(coinPrice, bagAmount) {
+    return Math.floor(bagAmount / coinPrice);
 }
 
 var printArray = function(table, coins, amount){
@@ -117,7 +122,6 @@ var printArray = function(table, coins, amount){
             for (let cuurAmount = 1; cuurAmount < table[0].length; cuurAmount++) {
                 table[0][cuurAmount] = cuurAmount;
             }
-            
         }
 
         if (coinWeight > 0) {
@@ -131,7 +135,7 @@ var printArray = function(table, coins, amount){
 }
 
 console.log( 
-    coinChange([2, 5], 5)
+    coinChange([2, 3, 5, 10], 10)
 );
 
 //console.log(qsort([2, 5, 1, 4]));
