@@ -92,24 +92,26 @@ var coinChange = function(coins, amount) {
 
     console.log(printArray(bagMaxCoins, coins, amount));
 
-    return bagMaxCoins[coins.length][amount];
+    const res = bagMaxCoins.slice(1, bagMaxCoins.length).map(weightsRow => {
+        const coinWeight = weightsRow[0];
+        // Вычислить значение по формуле
+        // Нужно проанализировать столбцы по индексу amount - coinWeight на предмет минимального значения
+        // затем из всех полученых взять минимальный столбец
+        // к нему добавить 1 
+        return weightsRow[amount - coinWeight];
+    });
+
+    return Math.min(...res) + 1;
 };
 
 var bestCoins = function(bagMaxCoins, coinWeight, bagAmount, coins, amount) {
     const coinPrice = coins[coinWeight - 1];
 
     if (bagAmount < coinPrice) {
-        bagMaxCoins[coinWeight][bagAmount]  = bagMaxCoins[coinWeight - 1][bagAmount];
         return;
     };
-
-    let priorWeight = bagMaxCoins[coinWeight - 1][bagAmount];
     
-    let looseWeight = bagAmount - coinPrice;
-    
-    let currentWeight = coinPrice + bagMaxCoins[coinWeight-1][looseWeight];
-
-    bagMaxCoins[coinWeight][bagAmount]  = Math.max(currentWeight, priorWeight);
+    bagMaxCoins[coinWeight][bagAmount]  = Math.floor(bagAmount / coinPrice);
 }
 
 var maxCoins = function(coinPrice, bagAmount) {
@@ -135,7 +137,7 @@ var printArray = function(table, coins, amount){
 }
 
 console.log( 
-    coinChange([2, 3, 5, 10], 10)
+    coinChange([1, 2, 5], 11)
 );
 
 //console.log(qsort([2, 5, 1, 4]));
