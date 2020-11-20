@@ -73,7 +73,8 @@ const qsort = array => {
  * @return {number}
  */
 var coinChange = function(coins, amount) {
-    
+    conins = coins.sort();
+
     let bagMaxCoins = new Array(coins.length + 1);
 
     for (let coinWeight = 0; coinWeight <= coins.length; coinWeight++) {
@@ -137,7 +138,7 @@ var printArray = function(table, coins, amount){
 }
 
 console.log( 
-    coinChange([1], 2)
+    coinChange([1, 2, 5], 9)
 );
 
 //console.log(qsort([2, 5, 1, 4]));
