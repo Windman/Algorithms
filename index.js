@@ -91,31 +91,31 @@ var coinChange = function(coins, amount) {
     }
 
     console.log(printArray(bagMaxCoins, coins, amount));
+    
+    const res = bagMaxCoins.slice(1, bagMaxCoins.length).map((weightsRow, index) => {
+        const currentWeight = weightsRow[amount] * weightsRow[0];
+        isResult = (amount - currentWeight) == 0;
+        additionalCoin = weightsRow[amount - currentWeight];
 
-    const res = bagMaxCoins.slice(1, bagMaxCoins.length).map(weightsRow => {
-        const coinWeight = weightsRow[0];
-        // Вычислить значение по формуле
-        // Нужно проанализировать столбцы по индексу amount - coinWeight на предмет минимального значения
-        // затем из всех полученых взять минимальный столбец
-        // к нему добавить 1 
-        return weightsRow[amount - coinWeight];
+        return isResult ? weightsRow[amount] : additionalCoin > 0 ? weightsRow[amount] + additionalCoin : -1;
     });
 
-    return Math.min(...res) + 1;
+    return amount == 0 ? 0 : Math.min(...res);
 };
 
 var bestCoins = function(bagMaxCoins, coinWeight, bagAmount, coins, amount) {
     const coinPrice = coins[coinWeight - 1];
 
+    let priorCoins = bagMaxCoins[coinWeight - 1][bagAmount] ;
+    
     if (bagAmount < coinPrice) {
+        bagMaxCoins[coinWeight][bagAmount] = priorCoins;
         return;
     };
     
-    bagMaxCoins[coinWeight][bagAmount]  = Math.floor(bagAmount / coinPrice);
-}
-
-var maxCoins = function(coinPrice, bagAmount) {
-    return Math.floor(bagAmount / coinPrice);
+    let currentCoins = Math.floor(bagAmount / coinPrice);
+    
+    bagMaxCoins[coinWeight][bagAmount] = priorCoins == 0 ? currentCoins : Math.min(priorCoins, currentCoins);
 }
 
 var printArray = function(table, coins, amount){
@@ -137,7 +137,7 @@ var printArray = function(table, coins, amount){
 }
 
 console.log( 
-    coinChange([1, 2, 5], 11)
+    coinChange([1], 2)
 );
 
 //console.log(qsort([2, 5, 1, 4]));
