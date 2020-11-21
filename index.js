@@ -91,15 +91,15 @@ var coinChange = function(coins, amount) {
         }
     }
 
-    for (let coinWeight = 0; coinWeight < table.length; coinWeight++) {
+    for (let coinWeight = 0; coinWeight < bagMaxCoins.length; coinWeight++) {
         if (coinWeight === 0) {
-            for (let cuurAmount = 1; cuurAmount < table[0].length; cuurAmount++) {
-                table[0][cuurAmount] = cuurAmount;
+            for (let cuurAmount = 1; cuurAmount < bagMaxCoins[0].length; cuurAmount++) {
+                bagMaxCoins[0][cuurAmount] = cuurAmount;
             }
         }
 
         if (coinWeight > 0) {
-            table[coinWeight][0] = coins[coinWeight - 1];
+            bagMaxCoins[coinWeight][0] = coins[coinWeight - 1];
         }
     }
 
