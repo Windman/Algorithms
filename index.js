@@ -92,16 +92,19 @@ var coinChange = function(coins, amount) {
     }
 
     console.log(printArray(bagMaxCoins, coins, amount));
-    
-    const res = bagMaxCoins.slice(1, bagMaxCoins.length).map((weightsRow, index) => {
-        const currentWeight = weightsRow[amount] * weightsRow[0];
-        isResult = (amount - currentWeight) == 0;
-        additionalCoin = weightsRow[amount - currentWeight];
 
-        return isResult ? weightsRow[amount] : additionalCoin > 0 ? weightsRow[amount] + additionalCoin : -1;
-    });
+    let totalcoins = bagMaxCoins[bagMaxCoins.length - 1][amount];
+    let amountLess = amount;
 
-    return amount == 0 ? 0 : Math.min(...res);
+    for (let i = coins.length - 1; i > 0; i--) {
+        let currCoin = coins[i];
+        amountLess = (amountLess - currCoin);
+        if (amountLess > 0) {
+            totalcoins += bagMaxCoins[bagMaxCoins.length - 1][amountLess];
+        }
+    }
+
+    return amount == 0 ? 0 : totalcoins;
 };
 
 var bestCoins = function(bagMaxCoins, coinWeight, bagAmount, coins, amount) {
@@ -138,7 +141,8 @@ var printArray = function(table, coins, amount){
 }
 
 console.log( 
-    coinChange([1, 2, 5], 9)
+    coinChange([1,3,5], 9)
+    //coinChange([1, 2, 5], 9)
 );
 
 //console.log(qsort([2, 5, 1, 4]));
