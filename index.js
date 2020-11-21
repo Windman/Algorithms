@@ -73,7 +73,7 @@ const qsort = array => {
  * @return {number}
  */
 var coinChange = function(coins, amount) {
-    conins = coins.sort();
+    coins = coins.sort((a,b)=>a-b);
 
     let bagMaxCoins = new Array(coins.length + 1);
 
