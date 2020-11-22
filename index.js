@@ -73,11 +73,11 @@ const qsort = array => {
  * @return {number}
  */
 var coinChange = function(coins, amount) {
-    coins = coins.sort((a,b)=>a-b);
+    let myCoins = coins.sort((a,b)=>a-b);
 
-    let bagMaxCoins = new Array(coins.length + 1);
+    let bagMaxCoins = new Array(myCoins.length + 1);
 
-    for (let coinWeight = 0; coinWeight <= coins.length; coinWeight++) {
+    for (let coinWeight = 0; coinWeight <= myCoins.length; coinWeight++) {
         bagMaxCoins[coinWeight] = new Array(amount + 1);
 
         for (let currBagAmount = 0; currBagAmount <= amount; currBagAmount++) {
@@ -85,9 +85,9 @@ var coinChange = function(coins, amount) {
         }
     }
 
-    for (let coinWeight = 1; coinWeight <= coins.length; coinWeight++) {
+    for (let coinWeight = 1; coinWeight <= myCoins.length; coinWeight++) {
         for (let currBagAmount = 1; currBagAmount <= amount; currBagAmount++) {
-            bestCoins(bagMaxCoins, coinWeight, currBagAmount, coins, amount);
+            bestCoins(bagMaxCoins, coinWeight, currBagAmount, myCoins, amount);
         }
     }
 
@@ -99,7 +99,7 @@ var coinChange = function(coins, amount) {
         }
 
         if (coinWeight > 0) {
-            bagMaxCoins[coinWeight][0] = coins[coinWeight - 1];
+            bagMaxCoins[coinWeight][0] = myCoins[coinWeight - 1];
         }
     }
 
@@ -109,6 +109,8 @@ var coinChange = function(coins, amount) {
    
     const checked = totalcoins * bagMaxCoins[bagMaxCoins.length - 1][0];
 
+    console.log(amount == 0 ? 0 : checked >= amount ? totalcoins : -1);
+    
     return amount == 0 ? 0 : checked >= amount ? totalcoins : -1;
 };
 
@@ -141,11 +143,15 @@ var printArray = function(table){
     }
 }
 
-console.log(coinChange([1, 2, 5], 9) == 3);
-console.log(coinChange([1, 3, 5], 9) == 3);
-console.log(coinChange([1, 2, 5], 11) == 3);
-console.log(coinChange([2, 5], 11) == -1);
-console.log(coinChange([2], 1) == -1);
+// console.log(coinChange([1, 2, 5], 9) == 3);
+// console.log(coinChange([1, 3, 5], 9) == 3);
+// console.log(coinChange([1, 2, 5], 11) == 3);
+// console.log(coinChange([2, 5], 11) == -1);
+// console.log(coinChange([2], 1) == -1);
+// console.log(coinChange([2], 1) == -1);
+// console.log(coinChange([83, 186, 408, 419], 6249) == 20);
+console.log(coinChange([2, 3, 5, 7], 19) == 3);
+
 //console.log(qsort([2, 5, 1, 4]));
 //console.log(max([2, 2, 2, 2]));
 
