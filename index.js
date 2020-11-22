@@ -106,17 +106,10 @@ var coinChange = function(coins, amount) {
     console.log(printArray(bagMaxCoins));
 
     let totalcoins = bagMaxCoins[bagMaxCoins.length - 1][amount];
-    let amountLess = amount;
+   
+    const checked = totalcoins * bagMaxCoins[bagMaxCoins.length - 1][0];
 
-    for (let i = coins.length - 1; i > 0; i--) {
-        let currCoin = coins[i];
-        amountLess = (amountLess - currCoin);
-        if (amountLess > 0) {
-            totalcoins += bagMaxCoins[bagMaxCoins.length - 1][amountLess];
-        }
-    }
-
-    return amount == 0 ? 0 : totalcoins;
+    return amount == 0 ? 0 : checked >= amount ? totalcoins : -1;
 };
 
 var bestCoins = function(bagMaxCoins, coinWeight, bagAmount, coins, amount) {
@@ -131,7 +124,15 @@ var bestCoins = function(bagMaxCoins, coinWeight, bagAmount, coins, amount) {
     
     let currentCoins = Math.floor(bagAmount / coinPrice);
     
-    bagMaxCoins[coinWeight][bagAmount] = priorCoins == 0 ? currentCoins : Math.min(priorCoins, currentCoins);
+    let result = priorCoins == 0 ? currentCoins : Math.min(priorCoins, currentCoins);
+
+    let lessAmount = bagAmount - currentCoins * coinPrice;
+
+    if (lessAmount > 0) {
+        result += bagMaxCoins[coinWeight][lessAmount];
+    }
+ 
+    bagMaxCoins[coinWeight][bagAmount] = result;
 }
 
 var printArray = function(table){
@@ -140,11 +141,11 @@ var printArray = function(table){
     }
 }
 
-console.log( 
-    coinChange([1,3,5], 9)
-    //coinChange([1, 2, 5], 9)
-);
-
+console.log(coinChange([1, 2, 5], 9) == 3);
+console.log(coinChange([1, 3, 5], 9) == 3);
+console.log(coinChange([1, 2, 5], 11) == 3);
+console.log(coinChange([2, 5], 11) == -1);
+console.log(coinChange([2], 1) == -1);
 //console.log(qsort([2, 5, 1, 4]));
 //console.log(max([2, 2, 2, 2]));
 
