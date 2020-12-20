@@ -150,7 +150,7 @@ var printArray = function(table){
 // console.log(coinChange([2], 1) == -1);
 // console.log(coinChange([2], 1) == -1);
 // console.log(coinChange([83, 186, 408, 419], 6249) == 20);
-console.log(coinChange([2, 3, 5, 7], 19) == 3);
+//console.log(coinChange([2, 3, 5, 7], 19) == 3);
 
 //console.log(qsort([2, 5, 1, 4]));
 //console.log(max([2, 2, 2, 2]));
@@ -186,3 +186,25 @@ console.log(coinChange([2, 3, 5, 7], 19) == 3);
 // }
 
 // main();
+
+
+// Renurn number of steps to reach the right bottom corner of the greed
+const gridTraveller = (m, n, cache = {}) => {
+    const key = `${m},${n}`;
+    if (typeof cache[key] != "undefined") {
+        return cache[key];
+    } 
+
+    if (m == 1 && n == 1) return 1;
+    if (m == 0 || n == 0) return 0;
+
+    cache[key] = gridTraveller(m - 1, n, cache) + gridTraveller(m , n - 1, cache);
+    return cache[key];
+}
+
+console.log(gridTraveller(1,1));
+console.log(gridTraveller(2,3));
+console.log(gridTraveller(3,2));
+console.log(gridTraveller(3,3));
+console.log(gridTraveller(9,9));
+console.log(gridTraveller(18,18));
