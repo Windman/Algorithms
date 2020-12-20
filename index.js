@@ -188,7 +188,8 @@ var printArray = function(table){
 // main();
 
 
-// Renurn number of steps to reach the right bottom corner of the greed
+// Memoization technic
+// Return number of steps to reach the right bottom corner of the greed
 const gridTraveller = (m, n, cache = {}) => {
     const key = `${m},${n}`;
     if (typeof cache[key] != "undefined") {
