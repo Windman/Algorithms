@@ -2,80 +2,12 @@ const utility = require('./utilites');
 const hourglass = require('./hourglass');
 const findpath = require('./find-path');
 const grokiing = require('./grokking-algorithms');
+const cronisBits = require('./cronis/bit');
+const bitUtils = require('./cronis/utils');
 
-const getLowestBit = x => {
-    return 1 & x;
-}
+bitUtils.printHelpTable(11);
 
-const getHighestBit = x => {
-    return x >>> 31;
-}
-
-function printHelpTable(max) {
-    for (let i = 0; i <= max; i++) {
-        console.log(`${i} - ${dec2bin(i)}`);
-    }
-
-    console.log(' - - - ');
-}
-
-function dec2bin(dec){
-    return dec.toString(2);
-}
-
-const findBadNumber = (numbers) => {
-    let flag = 0;
-
-    for (let i = 0; i < numbers.length; i ++) {
-       flag = flag ^ numbers[i];
-    }
-
-    return flag;
-}
-
-const hammingDistance = (x, y) => {
-    const bitString = dec2bin(x ^ y);
-    return bitString.split('').filter(str => str === '1').length;
-};
-
-const switchBits = data => {
-    console.log(dec2bin(data));
-    let switched = data;
-    let bits = [];
-    for (let i = 0; i < 31; i = i + 2) {
-        if (switched != 0) {
-            let currentBit = (data >>> i) & 1;
-            let nextBit = (data >>> i + 1) & 1;
-            
-            if (currentBit != nextBit) {
-                currentBit = currentBit === 0 ? 1 : 0; 
-                nextBit = nextBit === 0 ? 1 : 0; 
-            } 
-    
-            bits.push(currentBit);
-            bits.push(nextBit);
-            
-            switched = switched >> 2;
-        }
-    }
-
-    return bits.reverse().join('');
-}
-
-const generateUniq = (numbers) => {
-    let currentBit = 0;
-    for (let i = 0; i < numbers.length; i ++) {
-        currentBit = currentBit | numbers[i];
-    }
-
-    console.log('curentBit', currentBit);
-    return currentBit;
-}
-
-
-//printHelpTable(11);
-
-console.log(generateUniq([10000, 0, 1, 2, 3, 3, 33, 7, 500, 8, 35, 35, 35, 9, 5, 4, 6, 35, 47]));
+console.log(cronisBits.generateUniq([10000, 0, 1, 2, 3, 3, 33, 7, 500, 8, 35, 35, 35, 9, 5, 4, 6, 35, 47]));
 
 //console.log(dec2bin(switchBits(11)));
 
