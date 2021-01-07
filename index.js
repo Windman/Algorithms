@@ -3,22 +3,6 @@ const hourglass = require('./hourglass');
 const findpath = require('./find-path');
 const grokiing = require('./grokking-algorithms');
 
-// 1. Numbers
-const findBadNumber = (numbers) => {
-    let flag = 0;
-
-    for (let i = 0; i < numbers.length; i ++) {
-       flag = flag ^ numbers[i];
-    }
-
-    return flag;
-}
-
-const hammingDistance = (x, y) => {
-    const bitString = dec2bin(x ^ y);
-    return bitString.split('').filter(str => str === '1').length;
-};
-
 const getLowestBit = x => {
     return 1 & x;
 }
@@ -38,6 +22,21 @@ function printHelpTable(max) {
 function dec2bin(dec){
     return dec.toString(2);
 }
+
+const findBadNumber = (numbers) => {
+    let flag = 0;
+
+    for (let i = 0; i < numbers.length; i ++) {
+       flag = flag ^ numbers[i];
+    }
+
+    return flag;
+}
+
+const hammingDistance = (x, y) => {
+    const bitString = dec2bin(x ^ y);
+    return bitString.split('').filter(str => str === '1').length;
+};
 
 const switchBits = data => {
     console.log(dec2bin(data));
@@ -63,9 +62,22 @@ const switchBits = data => {
     return bits.reverse().join('');
 }
 
-printHelpTable(11);
+const generateUniq = (numbers) => {
+    let currentBit = 0;
+    for (let i = 0; i < numbers.length; i ++) {
+        currentBit = currentBit | numbers[i];
+    }
 
-console.log(dec2bin(switchBits(11)));
+    console.log('curentBit', currentBit);
+    return currentBit;
+}
+
+
+//printHelpTable(11);
+
+console.log(generateUniq([10000, 0, 1, 2, 3, 3, 33, 7, 500, 8, 35, 35, 35, 9, 5, 4, 6, 35, 47]));
+
+//console.log(dec2bin(switchBits(11)));
 
 //hammingDistance(1, 4);
 //console.log(dec2bin(Math.pow(2, 31) - 1));
