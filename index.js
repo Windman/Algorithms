@@ -26,26 +26,55 @@ function replaceSpaces(str, length) {
 // q2.
 function isShuffledPalindrome(str) {
     let result = false;
-
+    const stack = [];
+    // ??
 
     return result;
 }
 
-console.log(
-    isShuffledPalindrome('шашал') === true
-);
+// q3.
+function compressString(str) {
+    let prior = -1;
+    let charCodeMap = [];
+
+    for (let i = 0; i < str.length; i++) {
+        const current = str.charCodeAt(i);
+        if (current === prior) {
+            const priorRecord = charCodeMap[charCodeMap.length - 1];
+            priorRecord[1]++;
+        } else {
+            charCodeMap.push([current, 1])
+        }
+
+        prior = current; 
+    }
+
+    return charCodeMap.map(item => {
+        const char = String.fromCharCode(item[0]);
+        return `${item[1]}${char}`;
+    }).join('');
+}
 
 console.log(
-    isShuffledPalindrome('шаш') === true
+    compressString("ccaqaaaaabbbbb")  
 );
 
-console.log(
-    isShuffledPalindrome('лолош') === true
-);
+// console.log(
+//     isShuffledPalindrome('шашал') === true
+// );
 
-console.log(
-    isShuffledPalindrome('лолш') === false
-);
+// console.log(
+//     isShuffledPalindrome('шаш') === true
+// );
+
+// console.log(
+//     isShuffledPalindrome('лолош') === true
+// );
+
+// console.log(
+//     isShuffledPalindrome('лолш') === false
+// );
+
 // console.log(
 //     replaceSpaces("dog is a good boy        ", 17)
 // );
