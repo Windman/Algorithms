@@ -5,55 +5,51 @@ const grokiing = require('./grokking-algorithms');
 const cronisBits = require('./cronis/bit');
 const bitUtils = require('./cronis/utils');
 
-function setCharAt(str,index,chr) {
-    if(index > str.length-1) return str;
-    return str.substring(0,index) + chr + str.substring(index+1);
+//  Strings
+// q1. 
+function replaceSpaces(str, length) {
+    const space = "%20";
+    let newStringChar = [];
+
+    for (let i = 0; i < length; i++) {
+        const currentChar = str.charAt(i);
+        if (currentChar === ' ') {
+            newStringChar.push(space)
+        } else {
+            newStringChar.push(currentChar);
+        } 
+    }
+
+    return newStringChar.join('');
 }
 
-const minRemoveToMakeValid = function(s) {
-    let result = s;
-    const open = '(';
-    const close = ')';
+// q2.
+function isShuffledPalindrome(str) {
+    let result = false;
 
-    const stack = [];
-    const remove = [];
 
-    for(let i = 0; i < s.length; i++) {
-        const char = s.charAt(i);
-        if (char === open) {
-            stack.push([i, '(']);
-        }
-
-        if (char === close) {
-            if (stack.length == 0) {
-                remove[i] = 1;
-            }
-
-            stack.pop();
-        }
-    }
-
-    if (stack.length > 0) {
-        for(let i = 0; i < stack.length; i++) {
-            let startIndex = stack[i][0];
-            result = setCharAt(result, startIndex, ' ');
-        }
-    }
-
-    if (remove.length > 0) {
-        for(let i = 0; i < remove.length; i++) {
-            if (remove[i] === 1) {
-                result = setCharAt(result, i, ' ');
-            }
-        }
-    }
-
-    return result.replace(/\s/g, '').trim();
-};
+    return result;
+}
 
 console.log(
-minRemoveToMakeValid(')())()((')
+    isShuffledPalindrome('шашал') === true
 );
+
+console.log(
+    isShuffledPalindrome('шаш') === true
+);
+
+console.log(
+    isShuffledPalindrome('лолош') === true
+);
+
+console.log(
+    isShuffledPalindrome('лолш') === false
+);
+// console.log(
+//     replaceSpaces("dog is a good boy        ", 17)
+// );
+
 
 //bitUtils.printHelpTable(11);
 //console.log(cronisBits.generateUniq([10000, 0, 1, 2, 3, 3, 33, 7, 500, 8, 35, 35, 35, 9, 5, 4, 6, 35, 47]));
