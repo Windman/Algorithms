@@ -1,3 +1,5 @@
+const assert = require('chai').assert;
+
 const utility = require('./utilites');
 const hourglass = require('./hourglass');
 const findpath = require('./find-path');
@@ -5,59 +7,26 @@ const grokiing = require('./grokking-algorithms');
 const cronisBits = require('./cronis/bit');
 const bitUtils = require('./cronis/utils');
 
-//  Strings
-// q1. 
-function replaceSpaces(str, length) {
-    const space = "%20";
-    let newStringChar = [];
+function digitSumm(n) {
+    let counter = 0;
 
-    for (let i = 0; i < length; i++) {
-        const currentChar = str.charAt(i);
-        if (currentChar === ' ') {
-            newStringChar.push(space)
-        } else {
-            newStringChar.push(currentChar);
-        } 
-    }
-
-    return newStringChar.join('');
-}
-
-// q2.
-function isShuffledPalindrome(str) {
-    let result = false;
-    const stack = [];
-    // ??
-
-    return result;
-}
-
-// q3.
-function compressString(str) {
-    let prior = -1;
-    let charCodeMap = [];
-
-    for (let i = 0; i < str.length; i++) {
-        const current = str.charCodeAt(i);
-        if (current === prior) {
-            const priorRecord = charCodeMap[charCodeMap.length - 1];
-            priorRecord[1]++;
-        } else {
-            charCodeMap.push([current, 1])
+    function summa(n) {
+        if (n === 0) {
+            return n;
         }
+        
+        counter = counter + summa(Math.floor( n / 10)) + n % 10;
 
-        prior = current; 
+        return counter;
     }
 
-    return charCodeMap.map(item => {
-        const char = String.fromCharCode(item[0]);
-        return `${item[1]}${char}`;
-    }).join('');
+    summa(n);
+
+    return counter;
 }
 
-console.log(
-    compressString("ccaqaaaaabbbbb")  
-);
+
+assert.equal(digitSumm(1234), 10);
 
 // console.log(
 //     isShuffledPalindrome('шашал') === true
