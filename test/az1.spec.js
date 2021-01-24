@@ -22,7 +22,7 @@ function ClosestXdestinations(numDestinations, allLocations, numDeliveries) {
   return sorted.slice(0, numDeliveries);
 }
 
-describe("New one", () => {
+describe.skip("New one", () => {
   let r = [];
 
   before(done => {

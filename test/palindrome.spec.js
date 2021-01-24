@@ -1,6 +1,6 @@
 const assert = require("chai").assert;
 
-const poloindrome = (s, pos) => {
+const palindrome = (s, pos) => {
   let counter = 0;
   let shift = 1;
   while (
@@ -20,7 +20,7 @@ const analyze = s => {
   let counter = 0;
 
   for (let i = 0; i < len; i++) {
-    counter += poloindrome(s, i);
+    counter += palindrome(s, i);
 
     let repeats = 0;
     while (i + 1 < s.length && s.charAt(i) == s.charAt(i + 1)) {
@@ -32,7 +32,7 @@ const analyze = s => {
   return counter + len;
 };
 
-describe("Polindrome", () => {
+describe.skip("Palindrome iterative approach", () => {
   let r = "";
 
   before(done => {
@@ -43,11 +43,11 @@ describe("Polindrome", () => {
     done();
   });
 
-  it("Polindrome function Test 1", done => {
+  it("Palindrome function Test 1", done => {
     r = "aca";
-    assert.equal(poloindrome(r, 1), 1);
+    assert.equal(palindrome(r, 1), 1);
     r = "bacab";
-    assert.equal(poloindrome(r, 2), 1);
+    assert.equal(palindrome(r, 2), 1);
     done();
   });
 

@@ -29,7 +29,7 @@ function minimumDistance(area) {
   return counter;
 }
 
-describe("Finding minimum distance to the point int 2d array", () => {
+describe.skip("Finding minimum distance to the point int 2d array", () => {
 	let area = [];
 	
 	before(done => {

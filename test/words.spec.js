@@ -28,7 +28,7 @@ function findWordFriquency(str, exclude) {
 	return result[result.length - 1];
   }
 
-describe('Strings based algorithms', () => {
+describe.skip('Strings based algorithms', () => {
 	before(done => {
 		done();
 	});

@@ -33,7 +33,7 @@ const analyze = r => {
 };
 
 
-describe('Anogramm', () => {
+describe.skip('Anogramm', () => {
 	let r = [];
 	
 	before(done => {
