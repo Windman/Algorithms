@@ -15,7 +15,7 @@ const list = {
     const newNode = {
       next: undefined,
       prev: undefined,
-      data: data
+      val: data
     }
 
     if (typeof this.head == "undefined") {
@@ -42,19 +42,6 @@ const list = {
     return listArray;
   },
 
-  toArrayFromHead(fromItem) {
-    const listArray = [];
-    let listItem = fromItem; 
-    
-    while(typeof listItem !== "undefined") {
-      listArray.push(listItem.data);
-
-      listItem = listItem.prev;
-    }
-
-    return listArray;
-  },
-
   printFromTailToHead(separator) {
     console.log(this.toArrayFromTail(this.tail).join(separator));
   },
@@ -70,6 +57,38 @@ const list = {
 
       listItem = listItem.next;
     }
+  },
+
+  middleFromTail(tail) {
+    let slow = tail;
+    let fast = tail;
+
+    while (typeof fast.next !==  "undefined") {
+      slow = slow.next;
+      fast = fast.next.next;
+
+      if (typeof fast === "undefined"){
+        return slow.val;
+      }
+    }
+
+    return slow.val;
+  },
+
+  middleFromHead(head) {
+    let slow = head;
+    let fast = head;
+
+    while (typeof fast.next !==  "undefined") {
+      slow = slow.next;
+      fast = fast.next.next;
+
+      if (typeof fast === "undefined"){
+        return slow.val;
+      }
+    }
+
+    return slow.val;
   }
 }
 
@@ -77,6 +96,13 @@ list.addNode(1);
 list.addNode(2);
 list.addNode(3);
 list.addNode(4);
+list.addNode(5);
+
+assert.equal(list.middleFromHead(list.head), 3);
+
+list.addNode(6);
+
+assert.equal(list.middleFromHead(list.head), 4);
 
 list.printFromTailToHead(' -> ');
 list.printFromHeadToTail(' -> ');
