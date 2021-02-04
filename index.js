@@ -12,15 +12,9 @@ function pairsBasedOnMap(data, sum) {
 
   for (let i = 0; i < data.length; i++) {
     let diff = sum - data[i];
-    if (diff >= 0) {
+    if (diff >= 0 && !map.has(sum - data[i])) {
       map.set(data[i], diff);
-    }
-  }
-
-  for (let i = 0; i < data.length; i++) {
-    if (map.has(data[i])) {
       console.log(`${map.get(data[i])}, ${data[i]}`);
-      map.delete(sum - data[i]);
     }
   }
 }
