@@ -1,4 +1,4 @@
-const assert = require('chai').assert;
+// const assert = require('chai').assert;
 
 const utility = require('./utilites');
 const hourglass = require('./hourglass');
@@ -32,40 +32,48 @@ function bestMin(arr1, arr2) {
 }
 
 function findBestSumInterval(arr) {
-  // console.log(arr);
-  let next = 0;
-  let start = 0;
-  let stop = 0;
-  let currentSumm = 0;
-  let bestSumm = [0, 0, 0];
-  while(next < arr.length) {
-    currentSumm =  bestSumm[2] + arr[next];
-
-    if (currentSumm < bestSumm[2]) {
-      start++;
-      stop = next;
-    }
-
-    next ++;
-
-    console.log(`${start} ${stop} ${currentSumm}`);
-    bestSumm = [start, stop, currentSumm];
-  }
-
   const calculateSum = (start, stop) => {
     let max = 0;
 
-    for (let i = start; i < stop; i++) {
+    for (let i = start; i <= stop; i++) {
       max = max + arr[i];
     }
 
     return max;
+  } 
+  
+  console.log(arr);
+  let next = 0;
+  let start = 0;
+  let stop = 0;
+  let currentSumm = 0;
+  let prevSumm = 0;
+  let bestSumm = [0, 0, 0];
+  
+  while(next < arr.length) {
+    currentSumm =  prevSumm + arr[next];
+
+    if (currentSumm < prevSumm) {
+      start = next - 1;
+      stop = next;
+    } else {
+      stop++;
+    }
+
+    if (bestSumm[2] < currentSumm) {
+      bestSumm = [start, stop, calculateSum(start, stop)];
+    }
+    
+    next ++;
+
+    console.log(`${start} ${stop} ${bestSumm[2]}`);
+    prevSumm = currentSumm;
   }
 
-  return [start - 1, stop -1, calculateSum(start - 1, stop)];
+  return bestSumm;
 }
 
-console.log(findBestSumInterval([2, -8, 3, -2, 4, -10]));
+console.log(findBestSumInterval([2, -1, 2, -8, 3, -2, 4, -2, 2, 1, -5]));
 
 // console.log(
 //   bestMin([6, 10, 19], [1, 2, 9, 15, 25])
