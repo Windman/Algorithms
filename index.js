@@ -7,66 +7,35 @@ const grokiing = require('./grokking-algorithms');
 const cronisBits = require('./cronis/bit');
 const bitUtils = require('./cronis/utils');
 
-function bestMin(arr1, arr2) {
-  let i = 0;
-  let j = 0;
-  let bestMin = [arr1[0], arr2[0]];
-
-  while (i < arr1.length && j < arr2.length) {
-    let currDif = Math.abs(arr1[i] - arr2[j]);
-    let bestMinDif = Math.abs(bestMin[0] - bestMin[1]);
-
-    if (currDif < bestMinDif) {
-      bestMin[0] = arr1[i];
-      bestMin[1] = arr2[j];
-    }
-
-    if (arr1[i] > arr2[j]) {
-      j++;
-    } else {
-      i++;
-    }
-  }
-
-  return bestMin;
+function getBestYear(startYear, endYear, persons) {
+  let start = startYear;
+  let end = endYear;
+  for (let i = 0; i < persons.length; i++) {
+   		
+	if (getStart(persons[i]) > start) {
+        start = getStart(persons[i]);
+      }
+      
+      if(getEnd(persons[i]) < end) {
+        end = getEnd(persons[i]);
+      }
+      
+  }  
+ 
+  return [start, end];
+  
 }
 
-function findBestSumInterval(arr) {
-  // console.log(arr);
-  let next = 0;
-  let start = 0;
-  let stop = 0;
-  let currentSumm = 0;
-  let bestSumm = [0, 0, 0];
-  while(next < arr.length) {
-    currentSumm =  bestSumm[2] + arr[next];
-
-    if (currentSumm < bestSumm[2]) {
-      start++;
-      stop = next;
-    }
-
-    next ++;
-
-    console.log(`${start} ${stop} ${currentSumm}`);
-    bestSumm = [start, stop, currentSumm];
-  }
-
-  const calculateSum = (start, stop) => {
-    let max = 0;
-
-    for (let i = start; i < stop; i++) {
-      max = max + arr[i];
-    }
-
-    return max;
-  }
-
-  return [start - 1, stop -1, calculateSum(start - 1, stop)];
+function getStart(person) {
+ return person[0];
 }
 
-console.log(findBestSumInterval([2, -8, 3, -2, 4, -10]));
+function getEnd(person) {
+ return person[1];
+}
 
-// console.log(
-//   bestMin([6, 10, 19], [1, 2, 9, 15, 25])
-// );
+const persons = [[1991, 1993], [1990, 2012], [1990, 1999], [1992, 2010], [1992, 2010]];
+const startYear = 1990;
+const endYear = 2012;
+
+console.log(getBestYear(startYear, endYear, persons));
