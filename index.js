@@ -26,7 +26,7 @@ function findWords(words, hashMap) {
     end++;
   }
 
-  return result;
+  return result + words.substring(start, end);
 }
 
 
