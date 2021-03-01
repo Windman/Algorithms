@@ -17,7 +17,7 @@ function findWords(words, hashMap) {
       if (words.charAt(end) === word.charAt(0)) {
         let candidate = words.substring(end, end + word.length);
         if (hashMap[candidate]) {
-          result = result + words.substring(start, end) + ' ' + candidate + ' ';
+          result = result + ' ' + words.substring(start, end) + ' ' + candidate;
           start = end + word.length;
         } 
       }
@@ -26,8 +26,7 @@ function findWords(words, hashMap) {
     end++;
   }
 
-  return result + words.substring(start, end);
+  return result + ' ' + words.substring(start, end);
 }
 
-
-console.log(findWords("ILOVECATSANDDOGSSSSS".toLowerCase(), { cats: true, dog: true, i: true }));
+console.log(findWords("ilovedogandogdbc".toLowerCase(), { love: true, dog: true }));
