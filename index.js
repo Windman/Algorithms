@@ -1,4 +1,4 @@
-const assert = require('chai').assert;
+// const assert = require('chai').assert;
 
 const utility = require('./utilites');
 const hourglass = require('./hourglass');
@@ -7,35 +7,27 @@ const grokiing = require('./grokking-algorithms');
 const cronisBits = require('./cronis/bit');
 const bitUtils = require('./cronis/utils');
 
-function getBestYear(startYear, endYear, persons) {
-  let start = startYear;
-  let end = endYear;
-  for (let i = 0; i < persons.length; i++) {
-   		
-	if (getStart(persons[i]) > start) {
-        start = getStart(persons[i]);
+function findWords(words, hashMap) {
+  let result = "";
+  let start = 0;
+  let end = 0;
+  while (end < words.length) {
+
+    Object.keys(hashMap).forEach(word => {
+      if (words.charAt(end) === word.charAt(0)) {
+        let candidate = words.substring(end, end + word.length);
+        if (hashMap[candidate]) {
+          result = result + words.substring(start, end) + ' ' + candidate + ' ';
+          start = end + word.length;
+        } 
       }
-      
-      if(getEnd(persons[i]) < end) {
-        end = getEnd(persons[i]);
-      }
-      
-  }  
- 
-  return [start, end];
-  
+    });
+    
+    end++;
+  }
+
+  return result + words.substring(start, end);
 }
 
-function getStart(person) {
- return person[0];
-}
 
-function getEnd(person) {
- return person[1];
-}
-
-const persons = [[1991, 1993], [1990, 2012], [1990, 1999], [1992, 2010], [1992, 2010]];
-const startYear = 1990;
-const endYear = 2012;
-
-console.log(getBestYear(startYear, endYear, persons));
+console.log(findWords("ILOVECATSANDDOGSSSSS".toLowerCase(), { cats: true, dog: true, i: true }));
